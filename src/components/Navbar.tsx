@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import dmLogo from "@/assets/dm-logo.png";
+import { Menu, X } from "lucide-react";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -27,69 +27,68 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "glass-card border-b border-border/50 shadow-lg shadow-background/50"
+          ? "bg-background/80 backdrop-blur-xl border-b border-border/50"
           : "bg-transparent"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-        <a href="#" className="flex items-center gap-2">
-          <img src={dmLogo} alt="DM" width={32} height={32} className="rounded-lg" />
-          <span className="font-display font-bold text-lg text-foreground">
-            Darrell<span className="text-primary">.</span>
-          </span>
+      <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
+        <a href="#" className="font-display font-bold text-lg text-foreground tracking-tight">
+          D<span className="text-primary">.</span>M
         </a>
 
-        {/* Desktop */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-7">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
             >
               {item.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="text-sm font-medium px-4 py-2 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition-opacity"
+            className="text-sm font-semibold px-5 py-2 rounded-lg bg-primary text-primary-foreground hover:brightness-110 transition-all"
           >
             Let's Talk
           </a>
         </div>
 
-        {/* Mobile toggle */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden p-2 text-foreground"
           aria-label="Toggle menu"
         >
-          <span className={`w-5 h-0.5 bg-foreground transition-transform ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
-          <span className={`w-5 h-0.5 bg-foreground transition-opacity ${mobileOpen ? "opacity-0" : ""}`} />
-          <span className={`w-5 h-0.5 bg-foreground transition-transform ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </div>
 
-      {/* Mobile menu */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-card border-t border-border/50"
+            className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/50"
           >
-            <div className="px-6 py-4 flex flex-col gap-3">
+            <div className="px-6 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-muted-foreground hover:text-primary transition-colors py-2"
+                  className="text-muted-foreground hover:text-foreground transition-colors py-2.5 text-sm"
                 >
                   {item.label}
                 </a>
               ))}
+              <a
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                className="mt-2 text-sm font-semibold px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-center"
+              >
+                Let's Talk
+              </a>
             </div>
           </motion.div>
         )}
