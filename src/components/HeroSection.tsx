@@ -57,7 +57,7 @@ const HeroSection = () => {
               </div>
               <div className="absolute -bottom-2 -right-2 bg-background border border-border rounded-full px-3 py-1.5">
                 <span className="font-mono text-xs text-muted-foreground">online</span>
-                <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full ml-1.5 animate-pulse" />
+                <span className="inline-block w-1.5 h-1.5 bg-foreground rounded-full ml-1.5 animate-pulse" />
               </div>
             </div>
           </motion.div>
