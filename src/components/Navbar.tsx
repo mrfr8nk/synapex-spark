@@ -24,31 +24,31 @@ const Navbar = () => {
     <motion.nav
       initial={{ y: -80 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.4 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/80 backdrop-blur-xl border-b border-border/50"
+          ? "bg-background/90 backdrop-blur-md border-b border-border"
           : "bg-transparent"
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
-        <a href="#" className="font-display font-bold text-lg text-foreground tracking-tight">
-          D<span className="text-primary">.</span>M
+        <a href="#" className="font-mono font-bold text-sm text-foreground tracking-tight">
+          d.m<span className="text-muted-foreground">/</span>
         </a>
 
-        <div className="hidden md:flex items-center gap-7">
+        <div className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
             <a
               key={item.label}
               href={item.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+              className="text-xs font-mono text-muted-foreground hover:text-foreground transition-colors uppercase tracking-wider"
             >
               {item.label}
             </a>
           ))}
           <a
             href="#contact"
-            className="text-sm font-semibold px-5 py-2 rounded-lg bg-primary text-primary-foreground hover:brightness-110 transition-all"
+            className="text-xs font-medium px-4 py-1.5 rounded-md bg-foreground text-background hover:bg-foreground/90 transition-colors"
           >
             Let's Talk
           </a>
@@ -69,7 +69,7 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-t border-border/50"
+            className="md:hidden bg-background border-t border-border"
           >
             <div className="px-6 py-4 flex flex-col gap-1">
               {navItems.map((item) => (
@@ -77,7 +77,7 @@ const Navbar = () => {
                   key={item.label}
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  className="text-muted-foreground hover:text-foreground transition-colors py-2.5 text-sm"
+                  className="text-muted-foreground hover:text-foreground transition-colors py-2.5 text-sm font-mono"
                 >
                   {item.label}
                 </a>
@@ -85,7 +85,7 @@ const Navbar = () => {
               <a
                 href="#contact"
                 onClick={() => setMobileOpen(false)}
-                className="mt-2 text-sm font-semibold px-5 py-2.5 rounded-lg bg-primary text-primary-foreground text-center"
+                className="mt-2 text-sm font-medium px-4 py-2.5 rounded-md bg-foreground text-background text-center"
               >
                 Let's Talk
               </a>
