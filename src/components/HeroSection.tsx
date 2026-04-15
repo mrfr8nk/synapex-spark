@@ -1,13 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowDown, FileText, Mail, ChevronRight } from "lucide-react";
-
-const getGreeting = () => {
-  const h = new Date().getHours();
-  if (h < 12) return "Good morning";
-  if (h < 17) return "Good afternoon";
-  return "Good evening";
-};
+import { ArrowRight, Download, Mail } from "lucide-react";
+import profileImg from "@/assets/profile-hero.jpg";
 
 const taglines = [
   "Full Stack Developer",
@@ -43,109 +37,84 @@ const HeroSection = () => {
   }, [displayed, typing, tagIndex]);
 
   return (
-    <section className="relative min-h-screen flex items-center section-padding pt-28 overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-primary/8 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-accent/6 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="max-w-5xl mx-auto w-full relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-center"
-        >
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-muted-foreground text-sm font-medium mb-6 tracking-wide"
+    <section className="min-h-screen flex items-center px-6 md:px-12 lg:px-20 pt-20 pb-12">
+      <div className="max-w-6xl mx-auto w-full">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Photo - shows first on mobile */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6 }}
+            className="order-first lg:order-last flex justify-center"
           >
-            {getGreeting()} — welcome to my corner of the internet
-          </motion.p>
+            <div className="relative">
+              <div className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-border">
+                <img
+                  src={profileImg}
+                  alt="Darrell Mucheri"
+                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+              </div>
+              <div className="absolute -bottom-2 -right-2 bg-background border border-border rounded-full px-3 py-1.5">
+                <span className="font-mono text-xs text-muted-foreground">online</span>
+                <span className="inline-block w-1.5 h-1.5 bg-foreground rounded-full ml-1.5 animate-pulse" />
+              </div>
+            </div>
+          </motion.div>
 
-          <h1 className="font-display text-5xl sm:text-6xl md:text-8xl font-bold leading-[1.05] mb-6 tracking-tight">
-            I'm{" "}
-            <span className="text-gradient">Darrell</span>
-            <br />
-            Mucheri<span className="text-primary">.</span>
-          </h1>
-
-          <div className="h-9 mb-8 flex items-center justify-center">
-            <span className="font-display text-xl md:text-2xl text-muted-foreground font-medium">
-              {displayed}
-              <span className="text-primary animate-pulse ml-0.5">|</span>
-            </span>
-          </div>
-
-          <p className="text-muted-foreground text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
-            Started coding at 13. Now building systems, tools, and a
-            developer ecosystem that solves real problems.
-          </p>
-
-          <div className="flex flex-wrap justify-center gap-4 mb-16">
-            <a
-              href="#projects"
-              className="group inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:brightness-110 transition-all"
-            >
-              View Projects
-              <ChevronRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl border border-border text-foreground font-semibold text-sm hover:border-primary/40 hover:bg-primary/5 transition-all"
-            >
-              <Mail className="w-4 h-4" />
-              Contact Me
-            </a>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl bg-secondary text-secondary-foreground font-semibold text-sm hover:bg-secondary/80 transition-all"
-            >
-              <FileText className="w-4 h-4" />
-              Download CV
-            </a>
-          </div>
-
-          {/* Stats bar */}
-          <motion.div 
+          {/* Text */}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="inline-flex items-center gap-8 md:gap-12 px-8 py-5 rounded-2xl bg-card/60 backdrop-blur border border-border/50"
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            {[
-              { value: "5+", label: "Years Coding" },
-              { value: "10+", label: "Projects Shipped" },
-              { value: "1", label: "Startup Founded" },
-            ].map((s, i) => (
-              <div key={s.label} className="flex items-center gap-4">
-                {i > 0 && <div className="w-px h-8 bg-border hidden md:block" />}
-                <div className="text-center">
-                  <p className="font-display text-2xl font-bold text-foreground">{s.value}</p>
-                  <p className="text-xs text-muted-foreground mt-0.5">{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </motion.div>
-        </motion.div>
+            <p className="font-mono text-xs text-muted-foreground mb-6 tracking-widest uppercase">
+              ~/darrell-mucheri
+            </p>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <ArrowDown className="w-5 h-5 text-muted-foreground" />
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] mb-4 tracking-tight">
+              Darrell
+              <br />
+              Mucheri<span className="text-muted-foreground">.</span>
+            </h1>
+
+            <div className="h-8 mb-6 flex items-center">
+              <span className="font-mono text-sm md:text-base text-muted-foreground">
+                {">"} {displayed}
+                <span className="text-foreground animate-pulse">_</span>
+              </span>
+            </div>
+
+            <p className="text-muted-foreground text-sm md:text-base max-w-md mb-8 leading-relaxed">
+              Started coding at 13. Now building systems, tools, and a
+              developer ecosystem that solves real problems.
+            </p>
+
+            <div className="flex flex-wrap gap-3">
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-foreground text-background font-medium text-sm rounded-md hover:bg-foreground/90 transition-colors"
+              >
+                View Projects
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-foreground font-medium text-sm rounded-md hover:bg-accent transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                Contact
+              </a>
+              <a
+                href="#"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border text-muted-foreground font-medium text-sm rounded-md hover:bg-accent hover:text-foreground transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                CV
+              </a>
+            </div>
           </motion.div>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
