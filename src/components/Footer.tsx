@@ -18,7 +18,7 @@ const Footer = () => {
       <div className="max-w-6xl mx-auto px-6 md:px-12 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10 mb-16">
           <div className="col-span-2 md:col-span-1">
-            <p className="font-mono font-bold text-sm mb-3">d.m<span className="text-muted-foreground">/</span></p>
+            <p className="font-mono font-bold text-sm mb-3">D.M<span className="text-muted-foreground">/</span></p>
             <p className="text-muted-foreground text-xs leading-relaxed max-w-[200px]">Building the future, one commit at a time.</p>
           </div>
 
