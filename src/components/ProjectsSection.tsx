@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ChevronDown, Target, Brain, Wrench, Zap, CheckCircle2, TrendingUp, ArrowUpRight } from "lucide-react";
 import { useProjects } from "@/hooks/use-site-data";
 import { getIcon } from "@/lib/icons";
+import { TechIcon } from "@/lib/tech-icons";
 
 const caseStudyFields = [
   { key: "problem", label: "Problem", icon: Target },
@@ -14,7 +15,7 @@ const caseStudyFields = [
 ];
 
 const ProjectsSection = () => {
-  const { data: projects } = useProjects();
+  const { data: projects } = useProjects({ onlyVisible: true });
   const [openCase, setOpenCase] = useState<number | null>(null);
 
   if (!projects?.length) return null;
@@ -35,6 +36,11 @@ const ProjectsSection = () => {
             return (
               <motion.div key={p.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }}>
                 <div className="border border-border rounded-lg hover:border-foreground/20 transition-colors overflow-hidden">
+                  {p.image_url && (
+                    <div className="aspect-[16/7] overflow-hidden bg-secondary border-b border-border">
+                      <img src={p.image_url} alt={p.title} className="w-full h-full object-cover" loading="lazy" />
+                    </div>
+                  )}
                   <div className="p-6 md:p-8">
                     <div className="flex items-start gap-4">
                       <div className="w-10 h-10 rounded-md bg-secondary flex items-center justify-center shrink-0">
@@ -46,13 +52,16 @@ const ProjectsSection = () => {
                           <ArrowUpRight className="w-4 h-4 text-muted-foreground shrink-0 mt-1" />
                         </div>
                         <p className="text-muted-foreground text-sm leading-relaxed mb-4">{p.description}</p>
-                        <p className="text-xs font-mono text-muted-foreground mb-4">{p.impact}</p>
+                        {p.impact && <p className="text-xs font-mono text-muted-foreground mb-4">{p.impact}</p>}
                         <div className="flex flex-wrap gap-1.5 mb-4">
                           {(p.tech || []).map((t) => (
-                            <span key={t} className="font-mono text-[10px] px-2 py-0.5 rounded bg-secondary text-muted-foreground">{t}</span>
+                            <span key={t} className="inline-flex items-center gap-1.5 font-mono text-[10px] px-2 py-1 rounded bg-secondary text-muted-foreground">
+                              <TechIcon name={t} className="w-3 h-3" />
+                              {t}
+                            </span>
                           ))}
                         </div>
-                        {Object.keys(cs).length > 0 && (
+                        {Object.keys(cs).filter((k) => cs[k]).length > 0 && (
                           <button onClick={() => setOpenCase(openCase === i ? null : i)} className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors">
                             {openCase === i ? "hide" : "view"} case study
                             <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openCase === i ? "rotate-180" : ""}`} />

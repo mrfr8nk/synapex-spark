@@ -3,9 +3,11 @@ import HeroSection from "@/components/HeroSection";
 import StackMarquee from "@/components/StackMarquee";
 import WhatIBuildSection from "@/components/WhatIBuildSection";
 import ProjectsSection from "@/components/ProjectsSection";
+import GithubActivity from "@/components/GithubActivity";
 import SynapexSection from "@/components/SynapexSection";
 import JourneySection from "@/components/JourneySection";
 import CurrentlyBuildingSection from "@/components/CurrentlyBuildingSection";
+import BlogSection from "@/components/BlogSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -16,9 +18,11 @@ const Index = () => (
     <StackMarquee />
     <WhatIBuildSection />
     <ProjectsSection />
+    <GithubActivity />
     <SynapexSection />
     <JourneySection />
     <CurrentlyBuildingSection />
+    <BlogSection />
     <ContactSection />
     <Footer />
   </div>

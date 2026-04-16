@@ -2,8 +2,9 @@ import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useProjects } from "@/hooks/use-site-data";
 import { useQueryClient } from "@tanstack/react-query";
-import { Plus, Trash2, Save, ChevronDown } from "lucide-react";
+import { Plus, Trash2, Save, Eye, EyeOff } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ImageUpload from "@/components/ImageUpload";
 
 const AdminProjects = () => {
   const { data: projects, isLoading } = useProjects();
@@ -22,6 +23,8 @@ const AdminProjects = () => {
       icon_name: p.icon_name || "bot",
       sort_order: p.sort_order || 0,
       is_featured: p.is_featured ?? true,
+      is_visible: p.is_visible ?? true,
+      image_url: p.image_url || "",
       cs_problem: p.case_study?.problem || "",
       cs_thought: p.case_study?.thought || "",
       cs_techReason: p.case_study?.techReason || "",
@@ -48,14 +51,15 @@ const AdminProjects = () => {
       icon_name: form.icon_name,
       sort_order: Number(form.sort_order),
       is_featured: form.is_featured,
+      is_visible: form.is_visible,
+      image_url: form.image_url || null,
       case_study,
     };
 
-    if (editId === "new") {
-      await supabase.from("projects").insert(payload);
-    } else {
-      await supabase.from("projects").update(payload).eq("id", editId);
-    }
+    const { error } = editId === "new"
+      ? await supabase.from("projects").insert(payload)
+      : await supabase.from("projects").update(payload).eq("id", editId!);
+    if (error) { toast({ title: "Save failed", description: error.message, variant: "destructive" }); return; }
     queryClient.invalidateQueries({ queryKey: ["projects"] });
     toast({ title: "Project saved!" });
     setEditId(null);
@@ -67,9 +71,14 @@ const AdminProjects = () => {
     toast({ title: "Project deleted" });
   };
 
+  const toggleVisible = async (p: any) => {
+    await supabase.from("projects").update({ is_visible: !p.is_visible }).eq("id", p.id);
+    queryClient.invalidateQueries({ queryKey: ["projects"] });
+  };
+
   const handleAdd = () => {
     setEditId("new");
-    setForm({ title: "", description: "", impact: "", tech: "", icon_name: "bot", sort_order: 0, is_featured: true, cs_problem: "", cs_thought: "", cs_techReason: "", cs_challenges: "", cs_solution: "", cs_result: "" });
+    setForm({ title: "", description: "", impact: "", tech: "", icon_name: "bot", sort_order: 0, is_featured: true, is_visible: true, image_url: "", cs_problem: "", cs_thought: "", cs_techReason: "", cs_challenges: "", cs_solution: "", cs_result: "" });
   };
 
   if (isLoading) return <p className="text-muted-foreground text-sm">Loading...</p>;
@@ -88,17 +97,22 @@ const AdminProjects = () => {
           <h2 className="font-bold text-sm">{editId === "new" ? "New Project" : "Edit Project"}</h2>
           <input placeholder="Title" value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
           <textarea placeholder="Description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} rows={2} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 resize-none" />
+          <ImageUpload value={form.image_url} onChange={(url) => setForm({ ...form, image_url: url })} folder="projects" label="Project Image (optional)" />
           <div className="grid grid-cols-2 gap-3">
             <input placeholder="Impact" value={form.impact} onChange={(e) => setForm({ ...form, impact: e.target.value })} className="bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
             <input placeholder="Icon name" value={form.icon_name} onChange={(e) => setForm({ ...form, icon_name: e.target.value })} className="bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
           </div>
-          <input placeholder="Tech (comma separated)" value={form.tech} onChange={(e) => setForm({ ...form, tech: e.target.value })} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
-          
+          <input placeholder="Tech (comma separated, e.g. React, Node.js, Python)" value={form.tech} onChange={(e) => setForm({ ...form, tech: e.target.value })} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
+          <label className="flex items-center gap-2 text-sm">
+            <input type="checkbox" checked={form.is_visible} onChange={(e) => setForm({ ...form, is_visible: e.target.checked })} />
+            Visible on home
+          </label>
+
           <p className="font-mono text-xs text-muted-foreground uppercase tracking-wider mt-4">Case Study</p>
           {["problem", "thought", "techReason", "challenges", "solution", "result"].map((field) => (
             <textarea key={field} placeholder={field} value={form[`cs_${field}`]} onChange={(e) => setForm({ ...form, [`cs_${field}`]: e.target.value })} rows={2} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30 resize-none" />
           ))}
-          
+
           <div className="flex gap-2">
             <button onClick={handleSave} className="inline-flex items-center gap-2 px-4 py-2 bg-foreground text-background text-sm font-medium rounded-md hover:bg-foreground/90">
               <Save className="w-4 h-4" /> Save
@@ -111,11 +125,14 @@ const AdminProjects = () => {
       <div className="space-y-2">
         {projects?.map((p) => (
           <div key={p.id} className="border border-border rounded-lg px-4 py-3 flex items-center justify-between">
-            <div>
-              <p className="font-medium text-sm">{p.title}</p>
-              <p className="text-xs text-muted-foreground">{(p.tech || []).join(", ")}</p>
+            <div className="min-w-0">
+              <p className="font-medium text-sm truncate">{p.title} {!p.is_visible && <span className="text-xs text-muted-foreground font-mono ml-2">(hidden)</span>}</p>
+              <p className="text-xs text-muted-foreground truncate">{(p.tech || []).join(", ")}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex gap-3 shrink-0 items-center">
+              <button onClick={() => toggleVisible(p)} className="text-muted-foreground hover:text-foreground" title={p.is_visible ? "Hide" : "Show"}>
+                {p.is_visible ? <Eye className="w-4 h-4" /> : <EyeOff className="w-4 h-4" />}
+              </button>
               <button onClick={() => startEdit(p)} className="text-xs text-muted-foreground hover:text-foreground">Edit</button>
               <button onClick={() => handleDelete(p.id)} className="text-xs text-destructive hover:text-destructive/80">
                 <Trash2 className="w-3.5 h-3.5" />

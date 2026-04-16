@@ -15,6 +15,8 @@ import AdminCurrently from "./pages/admin/AdminCurrently.tsx";
 import AdminSocial from "./pages/admin/AdminSocial.tsx";
 import AdminFooter from "./pages/admin/AdminFooter.tsx";
 import AdminWhatIBuild from "./pages/admin/AdminWhatIBuild.tsx";
+import AdminBlog from "./pages/admin/AdminBlog.tsx";
+import BlogPost from "./pages/BlogPost.tsx";
 
 const queryClient = new QueryClient();
 
@@ -34,11 +36,13 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/admin/login" element={<AdminLogin />} />
             <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
               <Route index element={<Navigate to="/admin/settings" replace />} />
               <Route path="settings" element={<AdminSettings />} />
               <Route path="projects" element={<AdminProjects />} />
+              <Route path="blog" element={<AdminBlog />} />
               <Route path="what-i-build" element={<AdminWhatIBuild />} />
               <Route path="milestones" element={<AdminMilestones />} />
               <Route path="currently" element={<AdminCurrently />} />

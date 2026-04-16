@@ -13,11 +13,13 @@ export const useSiteSettings = () =>
     },
   });
 
-export const useProjects = () =>
+export const useProjects = (opts: { onlyVisible?: boolean } = {}) =>
   useQuery({
-    queryKey: ["projects"],
+    queryKey: ["projects", opts.onlyVisible ?? false],
     queryFn: async () => {
-      const { data, error } = await supabase.from("projects").select("*").order("sort_order");
+      let q = supabase.from("projects").select("*").order("sort_order");
+      if (opts.onlyVisible) q = q.eq("is_visible", true);
+      const { data, error } = await q;
       if (error) throw error;
       return data ?? [];
     },
@@ -68,6 +70,18 @@ export const useFooterLinks = () =>
     queryKey: ["footer_links"],
     queryFn: async () => {
       const { data, error } = await supabase.from("footer_links").select("*").order("sort_order");
+      if (error) throw error;
+      return data ?? [];
+    },
+  });
+
+export const useBlogPosts = (opts: { onlyPublished?: boolean } = {}) =>
+  useQuery({
+    queryKey: ["blog_posts", opts.onlyPublished ?? false],
+    queryFn: async () => {
+      let q = supabase.from("blog_posts").select("*").order("published_at", { ascending: false });
+      if (opts.onlyPublished) q = q.eq("is_published", true);
+      const { data, error } = await q;
       if (error) throw error;
       return data ?? [];
     },

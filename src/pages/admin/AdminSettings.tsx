@@ -4,6 +4,7 @@ import { useSiteSettings } from "@/hooks/use-site-data";
 import { useQueryClient } from "@tanstack/react-query";
 import { Save } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ImageUpload from "@/components/ImageUpload";
 
 const settingsKeys = [
   { key: "name", label: "Full Name" },
@@ -13,6 +14,7 @@ const settingsKeys = [
   { key: "location", label: "Location" },
   { key: "hero_greeting_prefix", label: "Hero Prefix (e.g. ~/darrell)" },
   { key: "cv_url", label: "CV Download URL" },
+  { key: "github_username", label: "GitHub Username (for activity graph)" },
   { key: "synapex_mission", label: "Synapex Mission Text" },
   { key: "synapex_tagline", label: "Synapex Tagline" },
 ];
@@ -30,9 +32,10 @@ const AdminSettings = () => {
 
   const handleSave = async () => {
     setSaving(true);
-    for (const { key } of settingsKeys) {
+    const keys = [...settingsKeys.map((k) => k.key), "profile_image_url"];
+    for (const key of keys) {
       if (form[key] !== undefined) {
-        await supabase.from("site_settings").upsert({ key, value: form[key] });
+        await supabase.from("site_settings").upsert({ key, value: form[key] || "" });
       }
     }
     queryClient.invalidateQueries({ queryKey: ["site_settings"] });
@@ -53,6 +56,13 @@ const AdminSettings = () => {
       </div>
 
       <div className="space-y-5">
+        <ImageUpload
+          value={form.profile_image_url}
+          onChange={(url) => setForm({ ...form, profile_image_url: url })}
+          folder="profile"
+          label="Profile Picture"
+        />
+
         {settingsKeys.map(({ key, label }) => (
           <div key={key}>
             <label className="block font-mono text-xs text-muted-foreground uppercase tracking-wider mb-1.5">{label}</label>
