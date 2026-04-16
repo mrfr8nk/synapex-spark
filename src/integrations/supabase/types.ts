@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      blog_posts: {
+        Row: {
+          content: string
+          cover_image_url: string | null
+          created_at: string
+          excerpt: string | null
+          id: string
+          is_published: boolean
+          published_at: string
+          slug: string
+          sort_order: number | null
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string
+          slug: string
+          sort_order?: number | null
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content?: string
+          cover_image_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          id?: string
+          is_published?: boolean
+          published_at?: string
+          slug?: string
+          sort_order?: number | null
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       currently_building: {
         Row: {
           category: string
@@ -117,8 +162,10 @@ export type Database = {
           description: string
           icon_name: string | null
           id: string
+          image_url: string | null
           impact: string | null
           is_featured: boolean | null
+          is_visible: boolean
           sort_order: number | null
           tech: string[] | null
           title: string
@@ -130,8 +177,10 @@ export type Database = {
           description: string
           icon_name?: string | null
           id?: string
+          image_url?: string | null
           impact?: string | null
           is_featured?: boolean | null
+          is_visible?: boolean
           sort_order?: number | null
           tech?: string[] | null
           title: string
@@ -143,8 +192,10 @@ export type Database = {
           description?: string
           icon_name?: string | null
           id?: string
+          image_url?: string | null
           impact?: string | null
           is_featured?: boolean | null
+          is_visible?: boolean
           sort_order?: number | null
           tech?: string[] | null
           title?: string

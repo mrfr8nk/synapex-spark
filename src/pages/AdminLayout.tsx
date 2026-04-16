@@ -3,12 +3,13 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Settings, FolderOpen, MapPin, Hammer, Link2,
-  Globe, LogOut, ChevronRight, Menu, X,
+  Globe, LogOut, ChevronRight, Menu, X, FileText,
 } from "lucide-react";
 
 const navItems = [
   { label: "Settings", href: "/admin/settings", icon: Settings },
   { label: "Projects", href: "/admin/projects", icon: FolderOpen },
+  { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "What I Build", href: "/admin/what-i-build", icon: Hammer },
   { label: "Milestones", href: "/admin/milestones", icon: MapPin },
   { label: "Currently", href: "/admin/currently", icon: LayoutDashboard },
@@ -29,7 +30,6 @@ const AdminLayout = () => {
 
   return (
     <div className="min-h-screen bg-background flex">
-      {/* Sidebar */}
       <aside className={`fixed inset-y-0 left-0 z-50 w-60 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:block`}>
         <div className="flex items-center justify-between h-14 px-4 border-b border-border">
           <Link to="/" className="font-mono font-bold text-sm">d.m<span className="text-muted-foreground">/</span>admin</Link>
@@ -68,7 +68,6 @@ const AdminLayout = () => {
         </div>
       </aside>
 
-      {/* Main */}
       <div className="flex-1 min-w-0">
         <header className="h-14 border-b border-border flex items-center px-4 gap-3">
           <button onClick={() => setSidebarOpen(true)} className="lg:hidden">

@@ -40,6 +40,7 @@ const HeroSection = () => {
 
   const name = settings?.name || "Darrell Mucheri";
   const [firstName, ...rest] = name.split(" ");
+  const profileSrc = settings?.profile_image_url || profileImg;
 
   return (
     <section className="min-h-screen flex items-center px-6 md:px-12 lg:px-20 pt-20 pb-12">
@@ -53,7 +54,7 @@ const HeroSection = () => {
           >
             <div className="relative">
               <div className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-2 border-border">
-                <img src={profileImg} alt={name} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
+                <img src={profileSrc} alt={name} className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" />
               </div>
               <div className="absolute -bottom-2 -right-2 bg-background border border-border rounded-full px-3 py-1.5">
                 <span className="font-mono text-xs text-muted-foreground">online</span>
