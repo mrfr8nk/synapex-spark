@@ -1,7 +1,9 @@
+import { TechIcon } from "@/lib/tech-icons";
+
 const stack = [
   "React", "TypeScript", "Node.js", "Python", "Supabase", "PostgreSQL",
-  "MongoDB", "Docker", "FastAPI", "Redis", "Tailwind CSS", "Next.js",
-  "WhatsApp API", "Express", "Git", "Linux", "Framer Motion", "Figma",
+  "MongoDB", "Docker", "FastAPI", "Redis", "TailwindCSS", "Next.js",
+  "WhatsApp", "Git", "Linux", "Framer", "Figma", "Vite",
 ];
 
 const StackMarquee = () => (
@@ -11,9 +13,9 @@ const StackMarquee = () => (
         {[...stack, ...stack].map((item, i) => (
           <span
             key={i}
-            className="inline-flex items-center mx-4 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors cursor-default"
+            className="inline-flex items-center gap-2 mx-6 text-sm font-mono text-muted-foreground hover:text-foreground transition-colors cursor-default"
           >
-            <span className="text-foreground/20 mr-3">/</span>
+            <TechIcon name={item} className="w-4 h-4" />
             {item}
           </span>
         ))}
