@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackMarquee from "@/components/StackMarquee";
 import WhatIBuildSection from "@/components/WhatIBuildSection";
+import SkillsSection from "@/components/SkillsSection";
 import ProjectsSection from "@/components/ProjectsSection";
 import GithubActivity from "@/components/GithubActivity";
 import SynapexSection from "@/components/SynapexSection";
@@ -17,6 +18,7 @@ const Index = () => (
     <HeroSection />
     <StackMarquee />
     <WhatIBuildSection />
+    <SkillsSection />
     <ProjectsSection />
     <GithubActivity />
     <SynapexSection />

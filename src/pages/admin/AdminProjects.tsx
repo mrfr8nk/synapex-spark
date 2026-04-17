@@ -25,6 +25,8 @@ const AdminProjects = () => {
       is_featured: p.is_featured ?? true,
       is_visible: p.is_visible ?? true,
       image_url: p.image_url || "",
+      demo_url: p.demo_url || "",
+      source_url: p.source_url || "",
       cs_problem: p.case_study?.problem || "",
       cs_thought: p.case_study?.thought || "",
       cs_techReason: p.case_study?.techReason || "",
@@ -53,6 +55,8 @@ const AdminProjects = () => {
       is_featured: form.is_featured,
       is_visible: form.is_visible,
       image_url: form.image_url || null,
+      demo_url: form.demo_url || null,
+      source_url: form.source_url || null,
       case_study,
     };
 
@@ -78,7 +82,7 @@ const AdminProjects = () => {
 
   const handleAdd = () => {
     setEditId("new");
-    setForm({ title: "", description: "", impact: "", tech: "", icon_name: "bot", sort_order: 0, is_featured: true, is_visible: true, image_url: "", cs_problem: "", cs_thought: "", cs_techReason: "", cs_challenges: "", cs_solution: "", cs_result: "" });
+    setForm({ title: "", description: "", impact: "", tech: "", icon_name: "bot", sort_order: 0, is_featured: true, is_visible: true, image_url: "", demo_url: "", source_url: "", cs_problem: "", cs_thought: "", cs_techReason: "", cs_challenges: "", cs_solution: "", cs_result: "" });
   };
 
   if (isLoading) return <p className="text-muted-foreground text-sm">Loading...</p>;
@@ -103,6 +107,10 @@ const AdminProjects = () => {
             <input placeholder="Icon name" value={form.icon_name} onChange={(e) => setForm({ ...form, icon_name: e.target.value })} className="bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
           </div>
           <input placeholder="Tech (comma separated, e.g. React, Node.js, Python)" value={form.tech} onChange={(e) => setForm({ ...form, tech: e.target.value })} className="w-full bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
+          <div className="grid grid-cols-2 gap-3">
+            <input placeholder="Live demo URL (optional)" value={form.demo_url} onChange={(e) => setForm({ ...form, demo_url: e.target.value })} className="bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
+            <input placeholder="Source code URL (optional)" value={form.source_url} onChange={(e) => setForm({ ...form, source_url: e.target.value })} className="bg-transparent border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-foreground/30" />
+          </div>
           <label className="flex items-center gap-2 text-sm">
             <input type="checkbox" checked={form.is_visible} onChange={(e) => setForm({ ...form, is_visible: e.target.checked })} />
             Visible on home

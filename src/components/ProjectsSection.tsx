@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { ChevronDown, Target, Brain, Wrench, Zap, CheckCircle2, TrendingUp, ArrowUpRight } from "lucide-react";
+import { ChevronDown, Target, Brain, Wrench, Zap, CheckCircle2, TrendingUp, ExternalLink, Github } from "lucide-react";
 import { useProjects } from "@/hooks/use-site-data";
 import { getIcon } from "@/lib/icons";
 import { TechIcon } from "@/lib/tech-icons";
@@ -47,10 +47,7 @@ const ProjectsSection = () => {
                         <Icon className="w-5 h-5 text-muted-foreground" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-4 mb-2">
-                          <h3 className="font-bold text-lg">{p.title}</h3>
-                          <ArrowUpRight className="w-4 h-4 text-muted-foreground shrink-0 mt-1" />
-                        </div>
+                        <h3 className="font-bold text-lg mb-2">{p.title}</h3>
                         <p className="text-muted-foreground text-sm leading-relaxed mb-4">{p.description}</p>
                         {p.impact && <p className="text-xs font-mono text-muted-foreground mb-4">{p.impact}</p>}
                         <div className="flex flex-wrap gap-1.5 mb-4">
@@ -61,12 +58,24 @@ const ProjectsSection = () => {
                             </span>
                           ))}
                         </div>
-                        {Object.keys(cs).filter((k) => cs[k]).length > 0 && (
-                          <button onClick={() => setOpenCase(openCase === i ? null : i)} className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors">
-                            {openCase === i ? "hide" : "view"} case study
-                            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openCase === i ? "rotate-180" : ""}`} />
-                          </button>
-                        )}
+                        <div className="flex flex-wrap items-center gap-2 mb-2">
+                          {(p as any).demo_url && (
+                            <a href={(p as any).demo_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-foreground text-background hover:bg-foreground/90 transition-colors">
+                              <ExternalLink className="w-3 h-3" /> Live Demo
+                            </a>
+                          )}
+                          {(p as any).source_url && (
+                            <a href={(p as any).source_url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md border border-border text-foreground hover:bg-secondary transition-colors">
+                              <Github className="w-3 h-3" /> Source
+                            </a>
+                          )}
+                          {Object.keys(cs).filter((k) => cs[k]).length > 0 && (
+                            <button onClick={() => setOpenCase(openCase === i ? null : i)} className="inline-flex items-center gap-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors ml-1">
+                              {openCase === i ? "hide" : "view"} case study
+                              <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openCase === i ? "rotate-180" : ""}`} />
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
