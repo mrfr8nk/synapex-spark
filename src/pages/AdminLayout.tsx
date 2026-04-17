@@ -3,11 +3,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Settings, FolderOpen, MapPin, Hammer, Link2,
-  Globe, LogOut, ChevronRight, Menu, X, FileText,
+  Globe, LogOut, ChevronRight, Menu, X, FileText, BarChart3, Inbox,
 } from "lucide-react";
 
 const navItems = [
   { label: "Settings", href: "/admin/settings", icon: Settings },
+  { label: "Skills", href: "/admin/skills", icon: BarChart3 },
   { label: "Projects", href: "/admin/projects", icon: FolderOpen },
   { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "What I Build", href: "/admin/what-i-build", icon: Hammer },
@@ -15,6 +16,7 @@ const navItems = [
   { label: "Currently", href: "/admin/currently", icon: LayoutDashboard },
   { label: "Social Links", href: "/admin/social", icon: Link2 },
   { label: "Footer Links", href: "/admin/footer", icon: Globe },
+  { label: "Inbox", href: "/admin/inbox", icon: Inbox },
 ];
 
 const AdminLayout = () => {
