@@ -59,6 +59,33 @@ export type Database = {
         }
         Relationships: []
       }
+      contact_messages: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          is_read: boolean
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          is_read?: boolean
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          is_read?: boolean
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
       currently_building: {
         Row: {
           category: string
@@ -159,6 +186,7 @@ export type Database = {
         Row: {
           case_study: Json | null
           created_at: string
+          demo_url: string | null
           description: string
           icon_name: string | null
           id: string
@@ -167,6 +195,7 @@ export type Database = {
           is_featured: boolean | null
           is_visible: boolean
           sort_order: number | null
+          source_url: string | null
           tech: string[] | null
           title: string
           updated_at: string
@@ -174,6 +203,7 @@ export type Database = {
         Insert: {
           case_study?: Json | null
           created_at?: string
+          demo_url?: string | null
           description: string
           icon_name?: string | null
           id?: string
@@ -182,6 +212,7 @@ export type Database = {
           is_featured?: boolean | null
           is_visible?: boolean
           sort_order?: number | null
+          source_url?: string | null
           tech?: string[] | null
           title: string
           updated_at?: string
@@ -189,6 +220,7 @@ export type Database = {
         Update: {
           case_study?: Json | null
           created_at?: string
+          demo_url?: string | null
           description?: string
           icon_name?: string | null
           id?: string
@@ -197,6 +229,7 @@ export type Database = {
           is_featured?: boolean | null
           is_visible?: boolean
           sort_order?: number | null
+          source_url?: string | null
           tech?: string[] | null
           title?: string
           updated_at?: string
@@ -218,6 +251,39 @@ export type Database = {
           key?: string
           updated_at?: string
           value?: string
+        }
+        Relationships: []
+      }
+      skills: {
+        Row: {
+          category: string
+          created_at: string
+          icon_slug: string | null
+          id: string
+          name: string
+          percentage: number
+          sort_order: number | null
+          updated_at: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          icon_slug?: string | null
+          id?: string
+          name: string
+          percentage?: number
+          sort_order?: number | null
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          icon_slug?: string | null
+          id?: string
+          name?: string
+          percentage?: number
+          sort_order?: number | null
+          updated_at?: string
         }
         Relationships: []
       }
