@@ -113,9 +113,6 @@ const techSlugs: Record<string, string> = {
   bolt: "stackblitz",
   dazle: "react",
   "replit ai": "replit",
-  "react native": "react",
-  "tailwind css": "tailwindcss",
-  "node.js": "nodedotjs",
   nodedotjs: "nodedotjs",
   nextdotjs: "nextdotjs",
 };
