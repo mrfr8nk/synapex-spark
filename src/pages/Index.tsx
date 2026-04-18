@@ -9,6 +9,7 @@ import SynapexSection from "@/components/SynapexSection";
 import JourneySection from "@/components/JourneySection";
 import CurrentlyBuildingSection from "@/components/CurrentlyBuildingSection";
 import BlogSection from "@/components/BlogSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 
@@ -25,6 +26,7 @@ const Index = () => (
     <JourneySection />
     <CurrentlyBuildingSection />
     <BlogSection />
+    <TestimonialsSection />
     <ContactSection />
     <Footer />
   </div>

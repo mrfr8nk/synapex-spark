@@ -17,6 +17,7 @@ import AdminFooter from "./pages/admin/AdminFooter.tsx";
 import AdminWhatIBuild from "./pages/admin/AdminWhatIBuild.tsx";
 import AdminBlog from "./pages/admin/AdminBlog.tsx";
 import AdminSkills from "./pages/admin/AdminSkills.tsx";
+import AdminTestimonials from "./pages/admin/AdminTestimonials.tsx";
 import AdminInbox from "./pages/admin/AdminInbox.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 
@@ -46,6 +47,7 @@ const App = () => (
               <Route path="skills" element={<AdminSkills />} />
               <Route path="projects" element={<AdminProjects />} />
               <Route path="blog" element={<AdminBlog />} />
+              <Route path="testimonials" element={<AdminTestimonials />} />
               <Route path="inbox" element={<AdminInbox />} />
               <Route path="what-i-build" element={<AdminWhatIBuild />} />
               <Route path="milestones" element={<AdminMilestones />} />
