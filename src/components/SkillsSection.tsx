@@ -17,10 +17,14 @@ const categoryLabels: Record<string, string> = {
   backend: "Backend",
   database: "Database",
   languages: "Languages",
-  devops: "DevOps & Tools",
+  devops: "DevOps & Security",
   mobile: "Mobile",
   ai: "AI / ML",
+  cdn: "CDN & Storage",
+  paas: "PaaS & Hosting",
 };
+
+const categoryOrder = ["frontend", "backend", "database", "cdn", "paas", "devops", "ai", "languages", "mobile"];
 
 const SkillsSection = () => {
   const { data: skills } = useQuery({
@@ -42,6 +46,11 @@ const SkillsSection = () => {
     return acc;
   }, {});
 
+  const orderedCats = Object.keys(grouped).sort(
+    (a, b) => (categoryOrder.indexOf(a) === -1 ? 999 : categoryOrder.indexOf(a)) -
+              (categoryOrder.indexOf(b) === -1 ? 999 : categoryOrder.indexOf(b))
+  );
+
   return (
     <section id="skills" className="section-padding">
       <div className="max-w-5xl mx-auto">
@@ -52,7 +61,7 @@ const SkillsSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-x-12 gap-y-10">
-          {Object.entries(grouped).map(([cat, items]) => (
+          {orderedCats.map((cat) => { const items = grouped[cat]; return (
             <div key={cat}>
               <h3 className="font-mono text-xs text-muted-foreground uppercase tracking-wider mb-5">
                 {categoryLabels[cat] || cat}
@@ -86,7 +95,7 @@ const SkillsSection = () => {
                 ))}
               </div>
             </div>
-          ))}
+          ); })}
         </div>
       </div>
     </section>
