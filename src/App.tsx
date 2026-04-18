@@ -22,7 +22,17 @@ import AdminInbox from "./pages/admin/AdminInbox.tsx";
 import AdminEducation from "./pages/admin/AdminEducation.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 3,
+      retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 8000),
+      staleTime: 60_000,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: true,
+    },
+  },
+});
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { user, isAdmin, loading } = useAuth();
