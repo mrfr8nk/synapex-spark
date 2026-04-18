@@ -1,7 +1,7 @@
 import {
   Bot, School, Workflow, Code, Layers, Server, Rocket, Sparkles,
   MessageSquare, GraduationCap, Cog, Hammer, BookOpen, ArrowRight,
-  Github, Twitter, Linkedin, ArrowUpRight, type LucideIcon,
+  Github, Twitter, Linkedin, ArrowUpRight, Atom, type LucideIcon,
 } from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -23,6 +23,7 @@ const iconMap: Record<string, LucideIcon> = {
   twitter: Twitter,
   linkedin: Linkedin,
   "arrow-up-right": ArrowUpRight,
+  atom: Atom,
 };
 
 export const getIcon = (name: string): LucideIcon => iconMap[name] || Code;

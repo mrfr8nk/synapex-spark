@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Settings, FolderOpen, MapPin, Hammer, Link2,
-  Globe, LogOut, ChevronRight, Menu, X, FileText, BarChart3, Inbox, MessageSquareQuote,
+  Globe, LogOut, ChevronRight, Menu, X, FileText, BarChart3, Inbox, MessageSquareQuote, GraduationCap,
 } from "lucide-react";
 
 const navItems = [
@@ -12,6 +12,7 @@ const navItems = [
   { label: "Projects", href: "/admin/projects", icon: FolderOpen },
   { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
+  { label: "Education", href: "/admin/education", icon: GraduationCap },
   { label: "What I Build", href: "/admin/what-i-build", icon: Hammer },
   { label: "Milestones", href: "/admin/milestones", icon: MapPin },
   { label: "Currently", href: "/admin/currently", icon: LayoutDashboard },
@@ -35,7 +36,10 @@ const AdminLayout = () => {
     <div className="min-h-screen bg-background flex">
       <aside className={`fixed inset-y-0 left-0 z-50 w-60 bg-card border-r border-border transform transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:static lg:block`}>
         <div className="flex items-center justify-between h-14 px-4 border-b border-border">
-          <Link to="/" className="font-mono font-bold text-sm">d.m<span className="text-muted-foreground">/</span>admin</Link>
+          <Link to="/" className="flex items-center gap-2 font-mono font-bold text-sm">
+            <img src="/favicon.ico" alt="logo" className="w-6 h-6 rounded" />
+            d.m<span className="text-muted-foreground">/</span>admin
+          </Link>
           <button onClick={() => setSidebarOpen(false)} className="lg:hidden">
             <X className="w-4 h-4" />
           </button>
