@@ -7,6 +7,7 @@ import ProjectsSection from "@/components/ProjectsSection";
 import GithubActivity from "@/components/GithubActivity";
 import SynapexSection from "@/components/SynapexSection";
 import JourneySection from "@/components/JourneySection";
+import EducationSection from "@/components/EducationSection";
 import CurrentlyBuildingSection from "@/components/CurrentlyBuildingSection";
 import BlogSection from "@/components/BlogSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
@@ -24,6 +25,7 @@ const Index = () => (
     <GithubActivity />
     <SynapexSection />
     <JourneySection />
+    <EducationSection />
     <CurrentlyBuildingSection />
     <BlogSection />
     <TestimonialsSection />

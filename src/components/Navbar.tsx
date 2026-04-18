@@ -4,9 +4,12 @@ import { Menu, X } from "lucide-react";
 
 const navItems = [
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
   { label: "Synapex", href: "#synapex" },
   { label: "Journey", href: "#journey" },
+  { label: "Education", href: "#education" },
+  { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -32,11 +35,14 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
-        <a href="#" className="font-mono font-bold text-sm text-foreground tracking-tight">
-          d.m<span className="text-muted-foreground">/</span>
+        <a href="#" className="flex items-center gap-2 group" aria-label="Home">
+          <img src="/favicon.ico" alt="Darrell Mucheri logo" className="w-7 h-7 rounded-md" />
+          <span className="font-mono font-bold text-sm hidden sm:inline tracking-tight">
+            d.m<span className="text-muted-foreground">/</span>
+          </span>
         </a>
 
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (
             <a
               key={item.label}

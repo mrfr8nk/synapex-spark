@@ -116,6 +116,51 @@ export type Database = {
         }
         Relationships: []
       }
+      education: {
+        Row: {
+          created_at: string
+          description: string | null
+          icon_name: string | null
+          id: string
+          is_highlight: boolean | null
+          level: string
+          period: string
+          results: Json | null
+          school: string
+          sort_order: number | null
+          status: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          icon_name?: string | null
+          id?: string
+          is_highlight?: boolean | null
+          level: string
+          period: string
+          results?: Json | null
+          school: string
+          sort_order?: number | null
+          status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          icon_name?: string | null
+          id?: string
+          is_highlight?: boolean | null
+          level?: string
+          period?: string
+          results?: Json | null
+          school?: string
+          sort_order?: number | null
+          status?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       footer_links: {
         Row: {
           created_at: string
