@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider, useAuth } from "@/contexts/AuthContext";
+import { ThemeProvider } from "@/contexts/ThemeContext";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import AdminLogin from "./pages/AdminLogin.tsx";
@@ -20,6 +21,7 @@ import AdminSkills from "./pages/admin/AdminSkills.tsx";
 import AdminTestimonials from "./pages/admin/AdminTestimonials.tsx";
 import AdminInbox from "./pages/admin/AdminInbox.tsx";
 import AdminEducation from "./pages/admin/AdminEducation.tsx";
+import AdminCertifications from "./pages/admin/AdminCertifications.tsx";
 import BlogPost from "./pages/BlogPost.tsx";
 
 const queryClient = new QueryClient({
@@ -43,6 +45,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
+    <ThemeProvider>
     <AuthProvider>
       <TooltipProvider>
         <Toaster />
@@ -60,6 +63,7 @@ const App = () => (
               <Route path="blog" element={<AdminBlog />} />
               <Route path="testimonials" element={<AdminTestimonials />} />
               <Route path="education" element={<AdminEducation />} />
+              <Route path="certifications" element={<AdminCertifications />} />
               <Route path="inbox" element={<AdminInbox />} />
               <Route path="what-i-build" element={<AdminWhatIBuild />} />
               <Route path="milestones" element={<AdminMilestones />} />
@@ -72,6 +76,7 @@ const App = () => (
         </BrowserRouter>
       </TooltipProvider>
     </AuthProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 
