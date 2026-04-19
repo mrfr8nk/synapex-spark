@@ -3,7 +3,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
 import {
   LayoutDashboard, Settings, FolderOpen, MapPin, Hammer, Link2,
-  Globe, LogOut, ChevronRight, Menu, X, FileText, BarChart3, Inbox, MessageSquareQuote, GraduationCap,
+  Globe, LogOut, ChevronRight, Menu, X, FileText, BarChart3, Inbox, MessageSquareQuote, GraduationCap, Award,
 } from "lucide-react";
 
 const navItems = [
@@ -13,6 +13,7 @@ const navItems = [
   { label: "Blog", href: "/admin/blog", icon: FileText },
   { label: "Testimonials", href: "/admin/testimonials", icon: MessageSquareQuote },
   { label: "Education", href: "/admin/education", icon: GraduationCap },
+  { label: "Certifications", href: "/admin/certifications", icon: Award },
   { label: "What I Build", href: "/admin/what-i-build", icon: Hammer },
   { label: "Milestones", href: "/admin/milestones", icon: MapPin },
   { label: "Currently", href: "/admin/currently", icon: LayoutDashboard },
