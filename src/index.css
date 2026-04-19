@@ -145,7 +145,7 @@
   width: 4px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(0 0% 0%);
+  background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--border));
@@ -211,4 +211,3 @@
 
 /* Theme transition */
 html { transition: background-color 0.3s ease; }
-}
