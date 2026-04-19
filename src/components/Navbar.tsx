@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { label: "About", href: "#about" },
@@ -9,6 +10,7 @@ const navItems = [
   { label: "Synapex", href: "#synapex" },
   { label: "Journey", href: "#journey" },
   { label: "Education", href: "#education" },
+  { label: "Certs", href: "#certifications" },
   { label: "Blog", href: "#blog" },
   { label: "Contact", href: "#contact" },
 ];
@@ -52,6 +54,7 @@ const Navbar = () => {
               {item.label}
             </a>
           ))}
+          <ThemeToggle />
           <a
             href="#contact"
             className="text-xs font-medium px-4 py-1.5 rounded-md bg-foreground text-background hover:bg-foreground/90 transition-colors"
@@ -60,13 +63,16 @@ const Navbar = () => {
           </a>
         </div>
 
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-foreground"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+        <div className="md:hidden flex items-center gap-1">
+          <ThemeToggle />
+          <button
+            onClick={() => setMobileOpen(!mobileOpen)}
+            className="p-2 text-foreground"
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       <AnimatePresence>
