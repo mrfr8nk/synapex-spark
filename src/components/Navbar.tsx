@@ -37,9 +37,9 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-14">
-        <a href="#" className="flex items-center gap-2 group" aria-label="Home">
-          <img src="/favicon.ico" alt="Darrell Mucheri logo" className="w-7 h-7 rounded-md" />
-          <span className="font-mono font-bold text-sm hidden sm:inline tracking-tight">
+        <a href="#" className="flex items-center gap-2.5 group" aria-label="Home">
+          <img src="/favicon.ico" alt="Darrell Mucheri logo" className="w-10 h-10 md:w-11 md:h-11 rounded-lg" />
+          <span className="font-mono font-bold text-lg md:text-xl hidden sm:inline tracking-tight">
             d.m<span className="text-muted-foreground">/</span>
           </span>
         </a>

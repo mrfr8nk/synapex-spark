@@ -4,6 +4,7 @@ import { OrbitControls, Text, Billboard } from "@react-three/drei";
 import { motion } from "framer-motion";
 import * as THREE from "three";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 type Cat = "frontend" | "backend" | "database" | "devops" | "ai" | "tools";
 const CAT_COLOR: Record<Cat, string> = {
@@ -113,6 +114,8 @@ const LanguageGlobe = () => {
   const [interacting, setInteracting] = useState(false);
   const { theme } = useTheme();
   const wireColor = theme === "dark" ? "#ffffff" : "#000000";
+  const isMobile = useIsMobile();
+  if (isMobile) return null;
 
   return (
     <section id="globe" className="section-padding">
