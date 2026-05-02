@@ -5,7 +5,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 const router = Router();
-const JWT_SECRET = process.env.JWT_SECRET || "darrell-portfolio-secret-2025";
+const JWT_SECRET = process.env.JWT_SECRET ?? (() => {
+  if (process.env.NODE_ENV === "production") throw new Error("JWT_SECRET env var is required in production");
+  return "darrell-portfolio-secret-2025";
+})();
 
 router.post("/auth/login", async (req, res) => {
   const { email, password } = req.body;
@@ -25,7 +28,8 @@ router.post("/auth/login", async (req, res) => {
 
 router.post("/auth/register", async (req, res) => {
   const { email, password, secret } = req.body;
-  if (secret !== (process.env.ADMIN_SECRET || "synapex-admin-2025")) {
+  const ADMIN_SECRET = process.env.ADMIN_SECRET ?? (process.env.NODE_ENV !== "production" ? "synapex-admin-2025" : "");
+  if (secret !== ADMIN_SECRET) {
     return res.status(403).json({ error: "Invalid admin secret" });
   }
   if (!email || !password) return res.status(400).json({ error: "Missing fields" });
