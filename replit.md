@@ -2,7 +2,22 @@
 
 ## Overview
 
-pnpm workspace monorepo using TypeScript. Each package manages its own dependencies.
+pnpm workspace monorepo using TypeScript. Darrell Mucheri's portfolio + admin panel with custom JWT API backend.
+
+## Artifacts
+
+### `artifacts/darrellm` — Portfolio Frontend (React + Vite)
+- Ultra-pro dark glassmorphism theme (dark by default, toggleable to light)
+- All sections: Hero, Skills, Projects, WhatIBuild, Journey/Milestones, CurrentlyBuilding, Synapex, LanguageGlobe, Blog, Education, Certifications, Testimonials, Contact, Footer
+- Admin panel at `/admin` with JWT auth — manages all content via custom REST API
+- Synapex section with logo + link to https://synapex.gleeze.com
+- LanguageGlobe: 3D WebGL globe with auto-fallback to 2D glassmorphism tag-cloud when no GPU
+
+### `artifacts/api-server` — REST API (Express 5 + Drizzle + PostgreSQL)
+- JWT auth (`/api/auth/login`, `/api/auth/register`, `/api/auth/me`)
+- Full CRUD for: projects, milestones, currently-building, social-links, what-i-build, footer-links, blog-posts, skills, testimonials, certifications, education, contact-messages, site-settings
+- File upload at `/api/upload` → `/api/media/:filename`
+- JWT_SECRET: `darrell-portfolio-secret-2025`, ADMIN_SECRET: `synapex-admin-2025`
 
 ## Stack
 
@@ -11,17 +26,26 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Package manager**: pnpm
 - **TypeScript version**: 5.9
 - **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
-- **Validation**: Zod (`zod/v4`), `drizzle-zod`
-- **API codegen**: Orval (from OpenAPI spec)
-- **Build**: esbuild (CJS bundle)
+- **Database**: PostgreSQL + Drizzle ORM (14 tables)
+- **Frontend**: React + Vite + Tailwind CSS + shadcn/ui + Framer Motion
+- **Auth**: JWT (bcryptjs + jsonwebtoken)
+- **Build**: esbuild (API), Vite (frontend)
+
+## DB Tables
+`siteSettings`, `projects`, `milestones`, `currentlyBuilding`, `socialLinks`, `whatIBuild`, `footerLinks`, `blogPosts`, `skills`, `testimonials`, `certifications`, `education`, `contactMessages`, `adminUsers`
+
+## Theme
+- Dark glassmorphism is the TRUE default (`:root` carries dark CSS vars)
+- Light mode applied via `.light` class override
+- Theme toggle persisted in localStorage key `dm-theme`
+- index.html inline script applies class before React mounts (no flash)
 
 ## Key Commands
 
-- `pnpm run typecheck` — full typecheck across all packages
-- `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from OpenAPI spec
 - `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
 - `pnpm --filter @workspace/api-server run dev` — run API server locally
+- `pnpm --filter @workspace/darrellm run dev` — run frontend locally
 
-See the `pnpm-workspace` skill for workspace structure, TypeScript setup, and package details.
+## Supabase
+Fully removed. `artifacts/darrellm/src/integrations/supabase/client.ts` is a no-op stub.
+All data goes through `artifacts/darrellm/src/lib/api.ts` → Express API.
