@@ -3,7 +3,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
 export const milestonesTable = pgTable("milestones", {
-  id: text("id").primaryKey().default("gen_random_uuid()"),
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   year: text("year").notNull(),
   title: text("title").notNull(),
   description: text("description").notNull(),

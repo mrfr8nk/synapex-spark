@@ -3,7 +3,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
 export const socialLinksTable = pgTable("social_links", {
-  id: text("id").primaryKey().default("gen_random_uuid()"),
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   platform: text("platform").notNull(),
   url: text("url").notNull(),
   iconName: text("icon_name").notNull(),

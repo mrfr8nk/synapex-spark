@@ -3,7 +3,7 @@ import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod/v4";
 
 export const currentlyBuildingTable = pgTable("currently_building", {
-  id: text("id").primaryKey().default("gen_random_uuid()"),
+  id: text("id").primaryKey().$defaultFn(() => crypto.randomUUID()),
   category: text("category").notNull(),
   iconName: text("icon_name"),
   items: json("items").$type<string[]>(),
