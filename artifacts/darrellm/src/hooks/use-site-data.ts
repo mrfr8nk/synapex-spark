@@ -13,7 +13,7 @@ export const useProjects = (opts: { onlyVisible?: boolean } = {}) =>
     queryKey: ["projects", opts.onlyVisible ?? false],
     queryFn: async () => {
       const data = await api.getProjects();
-      if (opts.onlyVisible) return data.filter((p: any) => p.isVisible);
+      if (opts.onlyVisible) return data.filter((p: any) => p.is_visible !== false);
       return data ?? [];
     },
     staleTime: 60_000,

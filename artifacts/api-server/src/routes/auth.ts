@@ -28,8 +28,15 @@ router.post("/auth/login", async (req, res) => {
 
 router.post("/auth/register", async (req, res) => {
   const { email, password, secret } = req.body;
-  const ADMIN_SECRET = process.env.ADMIN_SECRET ?? (process.env.NODE_ENV !== "production" ? "synapex-admin-2025" : "");
-  if (secret !== ADMIN_SECRET) {
+  const ADMIN_SECRET = process.env.ADMIN_SECRET;
+  if (!ADMIN_SECRET) {
+    if (process.env.NODE_ENV === "production") {
+      return res.status(503).json({ error: "Admin registration is not configured on this server" });
+    }
+    if (secret !== "synapex-admin-2025") {
+      return res.status(403).json({ error: "Invalid admin secret" });
+    }
+  } else if (secret !== ADMIN_SECRET) {
     return res.status(403).json({ error: "Invalid admin secret" });
   }
   if (!email || !password) return res.status(400).json({ error: "Missing fields" });

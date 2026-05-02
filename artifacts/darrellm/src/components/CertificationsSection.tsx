@@ -4,7 +4,7 @@ import { useCertifications } from "@/hooks/use-site-data";
 
 const CertificationsSection = () => {
   const { data: allCerts } = useCertifications();
-  const certs = allCerts?.filter((c: any) => c.isVisible !== false);
+  const certs = allCerts?.filter((c: any) => c.is_visible !== false);
 
   if (!certs?.length) return null;
 

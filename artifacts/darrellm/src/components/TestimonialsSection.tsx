@@ -16,7 +16,7 @@ interface Testimonial {
 
 const TestimonialsSection = () => {
   const { data: allItems } = useTestimonials();
-  const items = allItems?.filter((t: any) => t.isVisible !== false) as Testimonial[] | undefined;
+  const items = allItems?.filter((t: any) => t.is_visible !== false) as Testimonial[] | undefined;
 
   if (!items?.length) return null;
 
